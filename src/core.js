@@ -81,6 +81,11 @@ jQuery.fn = jQuery.prototype = {
 
 	// Get the Nth element in the matched element set OR
 	// Get the whole matched element set as a clean array
+	/*
+	* 注解
+	* 在匹配到的元素集中得到第n个元素或者
+	* 得到整个匹配到的元素集，作为一个纯属组
+	* */
 	get: function( num ) {
 
 		// Return all the elements in a clean array
@@ -95,17 +100,24 @@ jQuery.fn = jQuery.prototype = {
 	// Take an array of elements and push it onto the stack
 	// (returning the new matched element set)
 	/*
+	* 注解
 	* 创建一个新的jQuery实例，将给定的一系列元素elems推入到这个新的实例中，返回这个实例
 	* */
 	pushStack: function( elems ) {
 
 		// Build a new jQuery matched element set
+		/**
+		 * 注解
+		 * this.constructor()实际上就是jQuery()，返回一个空的jQuery对象
+		 * 这个语句的用意就是将给定的elems推到一个新建的空的jQuery对象中
+		 */
 		var ret = jQuery.merge( this.constructor(), elems );
 
 		// Add the old object onto the stack (as a reference)
 		/*
 		* 注解
 		* 该属性是用来实现jQuery串联特性的
+		* 这里的this指的是jQuery.prototype?
 		* */
 		ret.prevObject = this;
 
@@ -115,6 +127,7 @@ jQuery.fn = jQuery.prototype = {
 
 	// Execute a callback for every element in the matched set.
 	/*
+	* 注解
 	* jQuery对象实例上的方法，要求传入一个回调函数，就会对matched set中的每一个元素进行处理；
 	* 具体遍历的逻辑在jQuery函数的each方法内实现的
 	* */
