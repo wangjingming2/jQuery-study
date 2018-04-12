@@ -47,6 +47,16 @@ jQuery.parseHTML = function( data, context, keepScripts ) {
 	scripts = !keepScripts && [];
 
 	// Single tag
+	/*
+	* 注解
+	* 指的是这种情况
+	* <div>或
+	* <div></div>或
+	* <input>或
+	* <input />
+	* 排除的是标签嵌套标签的这种情况
+	* <div><span></span></div>
+	* */
 	if ( parsed ) {
 		return [ context.createElement( parsed[ 1 ] ) ];
 	}
