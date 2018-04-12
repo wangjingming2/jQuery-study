@@ -36,6 +36,14 @@ var
 	/* eslint-disable max-len */
 
 	// See https://github.com/eslint/eslint/issues/3229
+	/**
+	 * 注解
+	 * 匹配XHTML格式的标签
+	 * 如：<div/> <some-name />等，不支持<somename>
+	 * <some-name></some-name>双标签是不匹配的
+	 * 自然就没有标签嵌套的情况了
+	 * TODO: 另外(?!abc)匹配的子串是不被储存的？(1(2))括号嵌套的情况，储存的子串按照左括号的顺序来的。
+	 */
 	rxhtmlTag = /<(?!area|br|col|embed|hr|img|input|link|meta|param)(([a-z][^\/\0>\x20\t\r\n\f]*)[^>]*)\/>/gi,
 
 	/* eslint-enable */
@@ -236,6 +244,14 @@ function remove( elem, selector, keepData ) {
 
 jQuery.extend( {
 	htmlPrefilter: function( html ) {
+		/*
+		* 注解
+		* 将XHTML标签<some-name/>转换成<some-name></some-name>
+		* 当输入的是<some name/>时会转换错误变成<some name></some>
+		* 估计是为了兼容XHTML的写法，比如我想生成一个div元素，有些人可能就会
+		* 传入一个<div/>的字符串（$('<div/>')），虽然<div>（$('<div>')）
+		* 就可以正确解析生成一个div元素
+		**/
 		return html.replace( rxhtmlTag, "<$1></$2>" );
 	},
 
