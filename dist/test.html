@@ -8,8 +8,16 @@
 <body>
 	<div></div>
 <script>
+	var rxhtmlTag = /<(?!area|br|col|embed|hr|img|input|link|meta|param)(([a-z][^\/\0>\x20\t\r\n\f]*)[^>]*)\/>/gi;
+	// var str = '<div/>';
+	var str = '<div abc/>';
+	var res;
+	res = rxhtmlTag.exec(str);
+	console.log(res);
+
+	console.log(str.replace( rxhtmlTag, "<$1></$2>" ));
 	var a;
-	a = $('<div><span></span></div>', {className: 'test', p: ['a', 'b'], f: function(){alert('aa')}});
+	a = $('<div class="b">');
 	console.log(a);
 </script>
 </body>
